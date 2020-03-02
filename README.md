@@ -8,7 +8,32 @@
 
 ### 使用
 
-请见本项目示例。可传props具体见组件代码props声明。
+请见本项目示例。
+
+props
+| 属性 | 说明 | 类型 | 默认值 |
+| ---- | ---- | ---- | ---- |
+| src | 待裁剪图片 | String | '' |
+| size | 输出图片目标大小 | Object | { width: 0, height: 0 }
+| zIndex | 组件层级 | Number | 999 |
+| positionOffset | 裁剪框屏幕偏移 | Object | { top: 0, left: 0 }
+| borderWidth | 裁剪框边框宽度 | Number | 1 |
+| borderColor | 裁剪框边框颜色 | String | '#ffffff' |
+| boldCornerLen | 裁剪框边角加粗长度 | Number | 24 |
+| coverColor | 遮罩背景颜色 | String | 'rgba(0,0,0,.3)' |
+| cropSizePercent | 裁剪框占裁剪显示区域的比例 | Number | 0.9 |
+| rotateSlider | 是否开启旋转刻度盘 | Boolean | true |
+| startAngle | 旋转刻度盘开始角度，为负整数，若非负则为0 | Number | -90 |
+| gapAngle | 旋转刻度盘间隔角度，>=3的正整数 | Number | 10 |
+| endAngle | 旋转刻度盘结束角度，为正整数，若非正则为0，开始角度和结束角度之间存在大于0的整数个间隔 | Number | 90 |
+| lineationItemWidth | 旋转刻度盘间隔宽度，最小为40.5 | Number | 40.5 |
+| funcBtns | 功能按钮：取消、确认裁剪、整90度角旋转、还原 | Object | { 'close': true, 'crop': true, 'around': true, 'reset': true } |
+
+events
+| 事件名 | 说明 | 返回值 |
+| ---- | ---- | ---- |
+| on-close | 点击取消按钮 | 无 |
+| on-crop-change | 确认裁剪 | { resultSrc: '' } |
 
 ### 当前存在问题
 

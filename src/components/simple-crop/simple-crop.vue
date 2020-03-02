@@ -53,7 +53,7 @@ export default {
   props: {
     src: {
       type: String,
-      default: null
+      default: ''
     },
     size: {
       type: Object,
@@ -63,6 +63,10 @@ export default {
           height: 0,
         }
       }
+    },
+    zIndex: { // 组件层级
+      type: Number,
+      default: 999
     },
     positionOffset: { // 裁剪框屏幕偏移
       type: Object,
@@ -80,10 +84,6 @@ export default {
     borderColor: { // 裁剪框边框颜色
       type: String,
       default: '#ffffff'
-    },
-    zIndex: { // 组件层级
-      type: Number,
-      default: 999
     },
     boldCornerLen: { // 裁剪框边角加粗长度
       type: Number,
@@ -117,7 +117,7 @@ export default {
       type: Number,
       default: 40.5
     },
-    funcBtns: { // 功能按钮数组
+    funcBtns: { // 功能按钮
       type: Object,
       default: () => {
         return {
@@ -130,7 +130,7 @@ export default {
     }
   },
   computed: {
-    //开始角度需要小于0，结束角度需要大于0，且开始角度和结束角度之间存在大于0的整数个间隔
+    // 开始角度需要小于0，结束角度需要大于0，且开始角度和结束角度之间存在大于0的整数个间隔
     startAngleCopy () {
       let startAngle = this.startAngle < 0 ? parseInt(this.startAngle) : 0
       return startAngle
@@ -145,7 +145,7 @@ export default {
       return endAngle
     },
     gapAngleCopy () {
-      let gapAngle = this.gapAngle > 0 ? parseInt(this.gapAngle) : 3
+      let gapAngle = this.gapAngle > 3 ? parseInt(this.gapAngle) : 3
       return gapAngle
     },
     lineationItemWidthCopy () {
