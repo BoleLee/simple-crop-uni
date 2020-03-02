@@ -714,9 +714,9 @@ export default {
       }
       var lineationWidth = this.lineationItemWidthCopy * ((this.endAngleCopy - this.startAngleCopy) / this.gapAngleCopy + 1)
 
-      var self = this;
-      self.cropRotate = self.createSelectorQuery().select('#' + S_ID + ' .crop-rotate')
-      self.cropRotate.boundingClientRect(function (rect) {
+      var self = this
+      this.cropRotate = uni.createSelectorQuery().select('#' + S_ID + ' .crop-rotate')
+      this.cropRotate.boundingClientRect(function (rect) {
         self.rotateWidth = rect.width
         self.baseMoveX = -(lineationWidth * (0 - self.startAngleCopy + self.gapAngleCopy / 2) / (self.endAngleCopy - self.startAngleCopy + self.gapAngleCopy) - self.rotateWidth / 2); //开始角度大于 0 且结束角度小于 0，以 0 度为起点
         var angle = self.rotateAngle - self.baseAngle;
