@@ -80,6 +80,18 @@ yarn serve
 yarn build
 ```
 
+### Lints and fixes files
+
+```bash
+yarn run lint
+```
+
+默认创建的uni项目中没有带`eslint`, 因此需自行加入。
+
+请阅读[vue-cli文档指南：插件和Preset-插件-在现有的项目中安装插件](https://cli.vuejs.org/zh/guide/plugins-and-presets.html)。对于`babel, eslint, vue-router, vuex`这些组件，使用`vue add`来安装，vue-cli同时可能加入一些初始化代码，更改现有文件。
+
+对于eslint，推荐使用此方式安装，可省略配置工作。安装完成后，命令行会提示选择`eslint config`，可选：`Error prevention only | Airbnb | Standard | Prettier`，以及`lint features: Lint on save, Lint and fix on commit`，此项目配置了`Standard + Lint on save, Lint and fix on commit`.
+
 ### Customize configuration
 
 See [Configuration Reference](https://cli.vuejs.org/config/).
