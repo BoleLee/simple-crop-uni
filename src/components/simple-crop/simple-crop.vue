@@ -251,7 +251,7 @@ export default {
   methods: {
     // ----- 以下为transform()主函数及其辅助函数 ----- //
     // 旋转、缩放、移动
-    transform: function (rotateCover, scaleKeepCover) {
+    transform (rotateCover, scaleKeepCover) {
       var scaleNum = this.scaleTimes / this.times * this.rotateScale
       var transform = ''
       transform += ' scale(' + scaleNum + ')' // 缩放
@@ -305,7 +305,7 @@ export default {
     },
 
     // 获得矩形点坐标中心
-    getPointsCenter: function (points) {
+    getPointsCenter (points) {
       var center = {
         x: (points[0].x + points[2].x) / 2,
         y: (points[0].y + points[2].y) / 2
@@ -314,7 +314,7 @@ export default {
     },
 
     // 计算一个矩形刚好包含另一个矩形需要的缩放倍数
-    getCoverRectScale: function (outer, inner) {
+    getCoverRectScale (outer, inner) {
       var scale = 0
       for (var i = 0; i < inner.length; i++) {
         var num = this.getCoverPointScale(inner[i], outer)
@@ -326,7 +326,7 @@ export default {
     },
 
     // 计算一个矩形刚好包含矩形外一点需要的缩放倍数
-    getCoverPointScale: function (point, rectPoints) {
+    getCoverPointScale (point, rectPoints) {
       var pcv = this.getPCVectorProjOnUpAndRight(point, rectPoints)
 
       // 计算矩形外一点到矩形中心向量在矩形边框向量上的投影距离
@@ -344,7 +344,7 @@ export default {
     },
 
     // 计算图片内容刚好包含裁剪框的transform变换
-    getCoverTransform: function (transform, onlyTranslate) {
+    getCoverTransform (transform, onlyTranslate) {
       var cRect = this.getCoveRect(this.cropPoints, this.rotateAngle)
       onlyTranslate = onlyTranslate || false
 
@@ -469,7 +469,7 @@ export default {
     },
 
     // 计算新的变换坐标
-    getTransformPoints: function (transform, points) {
+    getTransformPoints (transform, points) {
       var matrix = this.getTransformMatrix(transform)
       var nPoints = []
       for (var i = 0; i < points.length; i++) {
@@ -486,7 +486,7 @@ export default {
     },
 
     // 获取 css transform 属性对应的矩形形式
-    getTransformMatrix: function (transform) {
+    getTransformMatrix (transform) {
       var transforms = transform.split(' ')
       var params = []
       for (var i = 0; i < transforms.length; i++) {
@@ -506,7 +506,7 @@ export default {
     },
 
     // 根据 css transform 属性获取 transformation-matrix 对应的函数名称以及参数
-    getTransformFunctionName: function (transform) {
+    getTransformFunctionName (transform) {
       var start = transform.indexOf('(')
       var end = transform.indexOf(')')
       var func = {}
@@ -546,7 +546,7 @@ export default {
     },
 
     // 计算向量夹角
-    vecAngle: function (vec1, vec2) {
+    vecAngle (vec1, vec2) {
       var acos = (vec1.x * vec2.x + vec1.y * vec2.y) / (this.vecLen(vec1) * this.vecLen(vec2))
       if (Math.abs(acos) > 1) { // 因为浮点数精度结果有可能超过1，Math.acos(1.0000001) = NaN
         acos = acos > 0 ? 1 : -1
@@ -557,12 +557,12 @@ export default {
     },
 
     // 计算向量的模
-    vecLen: function (vec) {
+    vecLen (vec) {
       return Math.sqrt(vec.x * vec.x + vec.y * vec.y)
     },
 
     // 找出一个矩形在另一个矩形外的顶点数据
-    getOutDetails: function (inner, outer) {
+    getOutDetails (inner, outer) {
       var outDetails = []
       for (var i = 0; i < inner.length; i++) {
         var pt = inner[i]
@@ -602,7 +602,7 @@ export default {
     },
 
     // 获取刚好包含某个矩形的新矩形
-    getCoveRect: function (rect, angle) {
+    getCoveRect (rect, angle) {
       if (angle < 0) {
         angle = 90 + angle % 90
       } else {
@@ -642,7 +642,7 @@ export default {
     },
 
     // 根据矩形中心到某一点向量在矩形边框向量的投影长度判断该点是否在矩形内
-    isPointInRectCheckByLen: function (point, rectPoints) {
+    isPointInRectCheckByLen (point, rectPoints) {
       var pcv = this.getPCVectorProjOnUpAndRight(point, rectPoints)
 
       var precision = 100 // 保留两位小数
@@ -660,7 +660,7 @@ export default {
     },
 
     // 计算矩形中心到某点的向量在矩形自身坐标系上方向和右方向上的投影向量
-    getPCVectorProjOnUpAndRight: function (point, rectPoints) {
+    getPCVectorProjOnUpAndRight (point, rectPoints) {
       // 计算矩形自身坐标系的上方向向量和右方向向量
       var up = {
         x: rectPoints[1].x - rectPoints[2].x,
@@ -690,7 +690,7 @@ export default {
     },
 
     // 计算向量 a 在向量 b 上的投影向量
-    getProjectionVector: function (vecA, vecB) {
+    getProjectionVector (vecA, vecB) {
       var bLen = this.vecLen(vecB)
       var ab = vecA.x * vecB.x + vecA.y * vecB.y
 
@@ -706,7 +706,7 @@ export default {
 
     // ----- 以下为初始化 ----- //
     // 初始化旋转刻度盘
-    initRotateSlider: function () {
+    initRotateSlider () {
       // 计算刻度列表
       var lineationArr = []
       for (var i = this.startAngleCopy; i <= this.endAngleCopy; i += this.gapAngleCopy) {
@@ -738,7 +738,7 @@ export default {
     },
 
     // 初始化相关子元素
-    initChilds: function () {
+    initChilds () {
       var self = this
       this.initPosition = 'position:absolute; left:50%; top:50%;'
       this.initTransform = 'transform:translate3d(-50%,-50%,0)'
@@ -835,7 +835,7 @@ export default {
     },
 
     // 根据裁剪图片目标尺寸、裁剪框显示比例、裁剪框偏移等参数更新并重现绘制裁剪框
-    updateFrame: function () {
+    updateFrame () {
       var src = this.src
       var size = this.size
       var cropSizePercent = this.cropSizePercent
@@ -856,7 +856,7 @@ export default {
     },
 
     // 矩形位置形式转换为顶点坐标形式
-    rectToPoints: function (rect) {
+    rectToPoints (rect) {
       var points = []
       points.push({
         x: -(this.maskViewSize.width / 2 - rect.left),
@@ -879,7 +879,7 @@ export default {
     },
 
     // 默认绘制裁剪框
-    defaultBorderDraw: function () {
+    defaultBorderDraw () {
       var coverColor = this.coverColor
       var borderColor = this.borderColor
       var boldCornerLen = this.boldCornerLen
@@ -929,7 +929,7 @@ export default {
     },
 
     // 设置裁剪图片
-    setImage: function () {
+    setImage () {
       var src = this.src
       if (src !== null && src !== '') {
         var type = Object.prototype.toString.call(src)
@@ -940,7 +940,7 @@ export default {
     },
 
     // 加载图片
-    load: function () {
+    load () {
       var self = this
       var src = this.src
       uni.showLoading({
@@ -971,7 +971,7 @@ export default {
 
     // #ifdef MP-WEIXIN
     // 图片方向转换数字表示
-    orientationToNumber: function (name) {
+    orientationToNumber (name) {
       var num = 1 // 默认方向
       switch (name) {
         case 'up-mirrored':
@@ -1005,7 +1005,7 @@ export default {
     // #endif
 
     // 处理图片方向
-    transformCoordinates: function (image) {
+    transformCoordinates (image) {
       this.contentWidth = this.originImage.width
       this.contentHeight = this.originImage.height
       // 图片方向大于 4 时宽高互相
@@ -1089,6 +1089,7 @@ export default {
 
         // canvas 不受 css transform 影响 需要转换为 image 显示
         var self = this
+        // #ifndef H5
         uni.canvasToTempFilePath({
           canvasId: 'crop_content',
           success: res => {
@@ -1096,11 +1097,31 @@ export default {
             uni.hideLoading()
           }
         }, self)
+        // #endif
+        // #ifdef H5
+        this.cropContentC.toBlob((blob) => {
+          self.visibleSrc = self.getObjectURL(blob)
+          uni.hideLoading()
+        }, 'image/png', 1)
+        // #endif
       }, 100)
     },
+    // #ifdef H5
+    getObjectURL (file) {
+      let url = null
+      if (window.createObjectURL !== undefined) { // basic
+        url = window.createObjectURL(file)
+      } else if (window.URL !== undefined) { // mozilla(firefox)
+        url = window.URL.createObjectURL(file)
+      } else if (window.webkitURL !== undefined) { // webkit or chrome
+        url = window.webkitURL.createObjectURL(file)
+      }
+      return url
+    },
+    // #endif
 
     // 初始化
-    init: function () {
+    init () {
       var width = this.contentWidth / 2
       var height = this.contentHeight / 2
       this.initContentPoints = [{
@@ -1132,7 +1153,7 @@ export default {
 
     // ----- 以下为操作响应函数 ----- //
     // 操作开始
-    startControl: function (touches) {
+    startControl (touches) {
       touches = touches || []
       if (!this.isControl || this.isTwoFingerEvent(touches)) {
         this.isControl = true
@@ -1141,7 +1162,7 @@ export default {
     },
 
     // 双指操作事件
-    isTwoFingerEvent: function (touches) {
+    isTwoFingerEvent (touches) {
       /**
        * 微信小程序双指操作时，会触发两次 touchstart 事件且前后两次事件触摸点坐标有一个坐标相同
        */
@@ -1153,7 +1174,7 @@ export default {
     },
 
     // 操作结束
-    endControl: function () {
+    endControl () {
       if (this.isControl) {
         this.isControl = false
         this.downPoints = []
@@ -1180,7 +1201,7 @@ export default {
     },
 
     // 判断 矩形A 是否完全包含 矩形B
-    isWholeCover: function (rectA, rectB) {
+    isWholeCover (rectA, rectB) {
       for (var i = 0; i < rectB.length; i++) {
         if (!this.isPointInRectCheckByLen(rectB[i], rectA)) {
           return false
@@ -1190,7 +1211,7 @@ export default {
     },
 
     // 触摸开始
-    touchstart: function (event) {
+    touchstart (event) {
       this.startControl(event.touches)
       this.multiPoint = false
       if (this.downPoints && this.downPoints.length >= 2) {
@@ -1209,7 +1230,7 @@ export default {
     },
 
     // 触摸移动
-    touchmove: function (event) {
+    touchmove (event) {
       if (this.downPoints && this.downPoints.length > 0) {
         if (!this.multiPoint) { // 单指移动
           this.contentMove(event.touches)
@@ -1228,7 +1249,7 @@ export default {
     },
 
     // 裁剪图片移动
-    contentMove: function (touches) {
+    contentMove (touches) {
       var point = touches[0]
       var moveX = point.clientX - this.downPoints[0].clientX
       var moveY = point.clientY - this.downPoints[0].clientY
@@ -1241,7 +1262,7 @@ export default {
     },
 
     // 双指缩放优化为以双指中心为基础点，实际变换以中心点为基准点，因此需要计算两者的偏移
-    getFingerScaleTranslate: function (scale) {
+    getFingerScaleTranslate (scale) {
       var fingerPoints = [] // 以双指中心缩放的新坐标
       var center = this.getPointsCenter(this.contentPoints) // 中心点不变
       for (var i = 0; i < this.contentPoints.length; i++) {
@@ -1259,7 +1280,7 @@ export default {
     },
 
     // 滑动旋转刻度盘
-    scrollLineation: function (event) {
+    scrollLineation (event) {
       var src = this.src
       var lineationWidth = this.lineationWidth
       var scrollLeft = event.detail.scrollLeft
@@ -1278,7 +1299,7 @@ export default {
     },
 
     // 整角旋转 90 度
-    around: function () {
+    around () {
       var rotateSlider = this.rotateSlider
 
       this.startControl()
@@ -1293,7 +1314,7 @@ export default {
     },
 
     // 重置
-    reset: function () {
+    reset () {
       var positionOffset = this.positionOffset
       var rotateSlider = this.rotateSlider
 
@@ -1319,36 +1340,76 @@ export default {
     },
 
     // 获取裁剪图片
-    getCropImage: function () {
+    getCropImage () {
       var positionOffset = this.positionOffset
       var size = this.size
       var self = this
-
       var contentWidth = this.contentWidth
       var contentHeight = this.contentHeight
-      let cropWidth
-      let cropHeight
-      // #ifndef H5
-      cropWidth = size.width
-      cropHeight = size.height
-      // #endif
-      // #ifdef H5
-      cropWidth = Math.round(size.width / this.initScale)
-      cropHeight = Math.round(size.height / this.initScale)
-      // #endif
       var center = {
         x: contentWidth / 2,
         y: contentHeight / 2
       }
+      let cropWidth = size.width
+      let cropHeight = size.height
       let image1
-      // #ifdef MP-WEIXIN
-      image1 = this.cropResultC.createImage()
-      image1.src = this.visibleSrc
-      // #endif
+      let image2
       // #ifdef H5
       image1 = new Image()
       image1.src = this.originImage.path // uni中H5端canvas的实现问题，本身被放大了pixelRatio倍，visibleSrc已不是原图大小
+      uni.showLoading({
+        title: '正在裁剪...',
+        mask: true
+      })
+      image1.onload = function () {
+        var scaleNum = self.scaleTimes / self.times * self.rotateScale
+        self.cropResultCtx.clearRect(0, 0, contentWidth, contentHeight)
+        self.cropResultCtx.save()
+        // 设置变换中心点
+        self.cropResultCtx.translate(center.x, center.y)
+        // 与裁剪时显示一样，做变换，与transform()中变换一致
+        self.cropResultCtx.scale(scaleNum, scaleNum)
+        self.cropResultCtx.translate((self.contentCurMoveX + positionOffset.left) / scaleNum, (self.contentCurMoveY + positionOffset.top) / scaleNum)
+        self.cropResultCtx.rotate(self.rotateAngle / 180 * Math.PI)
+        // 图片恢复原大小
+        self.cropResultCtx.scale(self.times / self.scaleTimes, self.times / self.scaleTimes)
+        // 恢复中心点
+        self.cropResultCtx.translate(-center.x, -center.y)
+        // 在变换后的canvas中绘制图片
+        self.cropResultCtx.drawImage(image1, 0, 0, contentWidth, contentHeight)
+        self.cropResultCtx.restore()
+
+        self.cropResultC.toBlob((blob1) => {
+          image2 = new Image()
+          const transformSrc = self.getObjectURL(blob1)
+          image2.src = transformSrc
+          cropWidth = Math.round(size.width / self.initScale * SystemInfo.pixelRatio)
+          cropHeight = Math.round(size.height / self.initScale * SystemInfo.pixelRatio)
+          const image2Width = Math.round(self.originImage.width * SystemInfo.pixelRatio)
+          const image2Height = Math.round(self.originImage.height * SystemInfo.pixelRatio)
+          const dx = (image2Width - cropWidth) / 2
+          const dy = (image2Height - cropHeight) / 2
+          image2.onload = function () {
+            self.cropFinalCtx.clearRect(0, 0, size.width, size.height)
+            self.cropFinalCtx.drawImage(image2, dx, dy, cropWidth, cropHeight, 0, 0, size.width, size.height)
+            self.cropFinalC.toBlob((blob2) => {
+              uni.hideLoading()
+              const resultSrc = self.getObjectURL(blob2)
+              self.resultSrc = resultSrc
+              // 获取裁剪后的图片
+              self.$emit('on-crop-change', {
+                resultSrc: resultSrc,
+                transformSrc: transformSrc
+              })
+            }, 'image/png', 1)
+          }
+        }, 'image/png', 1)
+      }
       // #endif
+
+      // #ifndef H5
+      image1 = this.cropResultC.createImage()
+      image1.src = this.visibleSrc
       uni.showLoading({
         title: '正在裁剪...',
         mask: true
@@ -1375,15 +1436,7 @@ export default {
         uni.canvasToTempFilePath({
           canvasId: 'crop_result'
         }, self).then(([error, res1]) => {
-          let image2
-          // #ifdef MP-WEIXIN
           image2 = self.cropFinalC.createImage()
-          // #endif
-          // #ifdef H5
-          image2 = new Image()
-          cropWidth = cropWidth * SystemInfo.pixelRatio
-          cropHeight = cropHeight * SystemInfo.pixelRatio
-          // #endif
           image2.src = res1.tempFilePath
           const dx = (image2.width - cropWidth) / 2
           const dy = (image2.height - cropHeight) / 2
@@ -1404,6 +1457,7 @@ export default {
           }
         })
       }
+      // #endif
     }
     // ----- 以上为操作响应函数 ----- //
   }

@@ -16,6 +16,7 @@
 
 <script>
 import SimpleCrop from '@/components/simple-crop/simple-crop.vue'
+import { compressImage } from '@/utils/file.js'
 
 export default {
   name: 'Demo',
@@ -40,8 +41,22 @@ export default {
       const self = this
       uni.chooseImage({
         success (res) {
+          // #ifdef H5
+          compressImage({
+            file: res.tempFiles[0],
+            type: 'image/jpeg',
+            quality: 0.9,
+            size: 256000,
+            length: 1000
+          }).then(src => {
+            self.src = src
+            self.visible = true
+          })
+          // #endif
+          // #ifndef H5
           self.visible = true
           self.src = res.tempFilePaths[0]
+          // #endif
         }
       })
     },

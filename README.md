@@ -11,6 +11,7 @@
 请见本项目示例。
 
 props
+
 | 属性 | 说明 | 类型 | 默认值 |
 | ---- | ---- | ---- | ---- |
 | src | 待裁剪图片 | String | '' |
@@ -30,15 +31,29 @@ props
 | funcBtns | 功能按钮：取消、确认裁剪、整90度角旋转、还原 | Object | { 'close': true, 'crop': true, 'around': true, 'reset': true } |
 
 events
+
 | 事件名 | 说明 | 返回值 |
 | ---- | ---- | ---- |
 | on-close | 点击取消按钮 | 无 |
 | on-crop-change | 确认裁剪 | { resultSrc: '' } |
 
+裁剪前压缩图片，可自行选择是否需要该压缩，不包含在组件代码内，压缩函数位于`utils/file.js: compressImage`
+
+params: Object
+
+| 属性 | 必须 | 说明 | 类型 | 默认值 |
+| ---- | ---- | ---- | ---- | ---- |
+| file | 必须 | 图片File对象，含{path, size}, 由uni.chooseImage可获得 | Object | - |
+| quality | 可选 | 0-1, 图片压缩质量 | Number | 1 |
+| type | 可选 | 指定图片格式，默认'image/png' | String | 'image/png' |
+| size | 可选 | 单位与file.size一致，默认256000, 小于这个值则不压缩图片 | Number | 256000 |
+| length | 可选 | 图片宽度或高度超过这个值则压缩，默认500 | Number | 500 |
+
+返回：压缩后的图片路径
+
 ### 当前存在问题
 
 - 刻度盘初始位置显示错误（`scroll-view`未按`scroll-left`设定滚动至目标位置）
-- “正在裁剪...”提示有时不显示
 
 ### 关系讲解图
 
